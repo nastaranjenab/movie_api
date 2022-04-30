@@ -34,7 +34,21 @@
             <p>GET</p>
             <p>None</p>
             <p>None</p>
-            <p>JSON object holding data about all the movies: <br>Array of: { "title": "Title of the movie", "director": "Name of the director", "genre": "Genre of the movie" }
+            <p> Returns JSON Object with a list of all top movies  <br>      {
+                Title: String,
+                Director: String,
+                Stars: [String],
+                Genre: {
+                  Name: String,
+                  Description: String
+                },
+                Director: {
+                  Name: String,
+                  Bio: String
+                }
+                Featured: Boolean,
+                ImageUrl: String
+              }
             </p>
         </div>
 
@@ -45,47 +59,86 @@
             <p>GET</p>
             <p>None</p>
             <p>None</p>
-            <p>JSON object holding data about a specific movie: <br>{ "title": "Title of the movie", "director": "Name of the director", "genre": "Genre of the movie" }</p>
+            <p>JSON containing details about movie by title  <br>      {
+                Title: String,
+                Director: String,
+                Stars: [String],
+                Genre: {
+                  Name: String,
+                  Description: String
+                },
+                Director: {
+                  Name: String,
+                  Bio: String
+                }
+                Featured: Boolean,
+                ImageUrl: String
+              }
+                   </p>
         </div>
 
         <!-- 3 -->
         <div class="grid">
             <p>Return data about a genre (description) by name/title (e.g., “Thriller”)</p>
-            <p>/movies/:title/details</p>
+            <p>/movies/genres/[title]</p>
             <p>GET</p>
             <p>None</p>
             <p>None</p>
-            <p>JSON value referring to the genre of a specific movie</p>
+            <p>Details about Genre of movie by title</p>
         </div>
 
         <!-- 4 -->
         <div class="grid">
-            <p>Return data about a director (bio, birth year, death year) by name</p>
+            <p>Return data about a director's name and bio</p>
             <p>/movies/directors/:name</p>
             <p>GET</p>
             <p>None</p>
             <p>None</p>
-            <p>JSON object holding information about the director<br>{ "bio": "description", "birthday": "day of birth", "deathyear": "Year of death" (undefined if still alive) }</p>
+            <p>JSON object holding information about the director<br>
+                {
+                  Name: String
+                  Bio: String
+                }</p>
         </div>
 
         <!-- 5 -->
         <div class="grid">
             <p>Allow new users to register</p>
-            <p>/users/register</p>
+            <p>/users</p>
             <p>POST</p>
             <p>None</p>
             <p>JSON object to register. <br>{ "name": "name of the user", "birthday": "day of birth", "username": "username chose from the user", "email": "email address" }</p>
-            <p>JSON object sent with request plus and additional random unique ID value recorded</p>
+            <p>Allows user to register
+
+                {
+                  Username: String,
+                  (required)
+                  Password: String,
+                  (required)
+                  Email: String,
+                  (required)
+                  Birthday: Date
+                }
+                        </p>
         </div>
 
         <!-- 6 -->
         <div class="grid">
             <p>Allow users to update their user info (username)</p>
-            <p>/users/:user</p>
+            <p>/users/[name]</p>
             <p>PUT</p>
             <p>None</p>
             <p>None</p>
-            <p>A text message indicating success</p>
+            <p>Allows user to update their information - will update information in JSON.
+
+                {
+                  Username: String,
+                  (required)
+                  Password: String,
+                  Email: String,
+                  Birthday: Date
+                }
+                        </p>
         </div>
 
         <div class="grid">

@@ -16,10 +16,13 @@ const Users = Models.User;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 
+/*
 mongoose.connect('mongodb://localhost:27017/movieapp', { 
   useNewUrlParser: true,
   useUnifiedTopology: true,
- });
+ });*/
+
+ mongoose.connect('mongodb+srv://nastoooh:Nima1989!@movieapp.h3q9h.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyparser.json());
 //log requests to server

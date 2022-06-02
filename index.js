@@ -48,7 +48,7 @@ require('./passport');
 
 
 app.get('/', (req, res) => {
-  res.send('Welcome to my myFlixxxx website');
+  res.send('Welcome to m myFlixxxx website xoi');
 });
 
 // (Read) and responds a json with all movies in database

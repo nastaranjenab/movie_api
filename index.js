@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost:27017/movieapp', {
  });*/
 // To allow certain origins to be given access to make requests
 
-let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://movieflexworld.herokuapp.com/'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://movieflexworld.herokuapp.com/', 'https://movieflexworld.herokuapp.com/login'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -52,16 +52,20 @@ app.get('/', (req, res) => {
 
 // (Read) and responds a json with all movies in database
 // Get all movies
-app.get("/movies", function (req, res) {
-  Movies.find()
-    .then(function (movies) {
-      res.status(201).json(movies);
-    })
-    .catch(function (error) {
-      console.error(error);
-      res.status(500).send("Error: " + error);
-    });
-});
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.find()
+      .then(function (movie) {
+        res.status(201).json(movie);
+      })
+      .catch(function (err) {
+        console.error(err);
+        res.status(500).send("Error:" + err);
+      });
+  }
+);
 
 // Get all users
 app.get('/users', passport.authenticate('jwt', { session: false }),

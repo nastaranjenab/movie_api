@@ -52,14 +52,15 @@ app.get('/', (req, res) => {
 
 // (Read) and responds a json with all movies in database
 // Get all movies
-app.get("/movies", function (req, res) {
+app.get('/movies', passport.authenticate('jwt', { session: false }),
+(req, res) => {
   Movies.find()
-    .then(function (movies) {
-      res.status(201).json(movies);
+    .then((movie) => {
+      res.status(201).json(movie);
     })
-    .catch(function (error) {
-      console.error(error);
-      res.status(500).send("Error: " + error);
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
     });
 });
 

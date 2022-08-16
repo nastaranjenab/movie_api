@@ -22,7 +22,8 @@ mongoose.connect('mongodb://localhost:27017/movieapp', {
  });*/
 // To allow certain origins to be given access to make requests
 
-let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://movieflexworld.herokuapp.com/', 'https://movieflexworld.herokuapp.com/login'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://movieflexworld.herokuapp.com/','https://flourishing-horse-be1ece.netlify.app/'
+,'https://movieflexworld.herokuapp.com/login'];
 
 app.use(cors({
   origin: (origin, callback) => {

@@ -55,8 +55,13 @@ app.get('/', (req, res) => {
   res.send('Welcome to my myFlixxxx website');
 });
 
-// (Read) and responds a json with all movies in database
-// Get all movies
+
+/**
+ * @function [path]/movies/
+ * GET: Get list of data about ALL movies
+ * @returns {Object[]} movies
+ * @requires passport
+ */
 app.get("/movies", passport.authenticate('jwt', { session: false }),
 function (req, res) {
   Movies.find()
@@ -69,7 +74,12 @@ function (req, res) {
     });
 });
 
-// Get all users
+
+/**
+ * @function [path]/users/
+ * GET: Read information about all users
+ * @returns {Object[]} users
+ */
 app.get('/users', passport.authenticate('jwt', { session: false }),
 function (req, res) {
   Users.find()
@@ -82,7 +92,13 @@ function (req, res) {
     });
 });
 
-// Get a user by username
+/**
+ * @function [path]/users/:username
+ * GET: Return data on one user by username
+ * @param {string} username
+ * @returns {Object} user
+ * @requires passport
+ */
 app.get('/users/:Username', passport.authenticate('jwt', { session: false }),
 (req, res) => {
   Users.findOne({ Username: req.params.Username })
@@ -95,7 +111,13 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }),
     });
 });
 
-//(Read) responds with a json of the specific movie asked for title
+/**
+ * @function [path]/movies/:Title
+ * GET: Get one movie by title
+ * @param {any} Title
+ * @returns {Object} movie
+ * @requires passport
+ */
 app.get('/movies/:Title', passport.authenticate('jwt', { session: false }),
 (req, res) => {
   Movies.findOne({ Title: req.params.Title})
@@ -108,7 +130,13 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }),
   });
 });
 
-//(Read) responds with a json of the specific movie asked for genre
+/**
+ * @function [path]/genres/:genreName
+ * GET: get data about a single genre by Genre Name
+ * @param {any} genreName
+ * @returns {Object} genre
+ * @requires passport
+ */
 app.get('/genre/:Name', passport.authenticate('jwt', { session: false }),
 (req, res) => {
   Movies.findOne({ 'Genre.Name': req.params.Name })
@@ -167,6 +195,13 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt', { session: false
 });
 
 
+/**
+ * Password is hashed
+ * @function [path]/users/
+ * POST: Create new user
+ * @param {JSON} data from registration form
+ * @returns user object
+ */
 
 //Add a user and register
 app.post('/users',
@@ -216,7 +251,13 @@ app.post('/users',
       });
   });
 
-//update
+/**
+ * @function [path]/users/:username/update
+ * PUT: Allow users to update their user data
+ * @param {string} Username
+ * @returns {Object} user - with new informations
+ * @requires passport
+ */
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
 (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
@@ -238,7 +279,12 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
   });
 });
 
-// Delete a user by username
+/**
+ * @function [path]/users/
+ * DELETE: Remove a user by username
+ * @param {string} Username
+ * @requires passport
+ */
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
@@ -255,8 +301,12 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
     });
 });
 
-
-// deletes a movie from a users list of favorite movies
+/** 
+ * @function [path]/users/:Username/Movies/:MovieID
+ * DELETE: Remove movie from a user"s list of favorite movies
+ * @param {any} movieID
+ * @requires passport
+ */
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }),
 (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, 
@@ -287,8 +337,11 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
-
-// listen for requests
+/**
+ * Run the server on the specified port
+ * @function app.listen
+ * @param {number} port
+ */
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
